@@ -2,7 +2,7 @@ class Robot
   attr_accessor :foos,
                 :bars,
                 :id,
-                :funds,
+                :available_funds,
                 :foobars,
                 :stopwatch
   # each robot has
@@ -22,17 +22,17 @@ class Robot
     @foos = []
     @bars = []
     @foobars = []
-    @funds = 0
+    @available_funds = 0
     @id = @manager.generate_bot_id
   end
 
   # when should the robot mine Foo & Bar
   # when his repo is empty or when the global repo is empty
-  
+
   def get_to_work!
     while @stopwatch.running
-      ::Actions::MineFoo.new(self, @manager) if @manager.foos.empty? #should it be the manager checking foos or every individual bots
-      ::Actions::MineBar.new(self, @manager) if @manager.bars.empty? # same
+      ::Actions::MineFoo.new(self, @manager).perform if self.foos.empty? #should it be the manager checking foos or every individual bots
+      ::Actions::MineBar.new(self, @manager).perform if self.bars.empty? # same
       puts("elapsed time : #{@stopwatch.elapsed}")
       ActionDecisionCenter.new(@manager, self).choose_action
     end

@@ -1,8 +1,7 @@
 module Actions
   class Sell
     @@duration = 1
-    def initialize(foobar, robot, manager)
-      @foobar = foobar
+    def initialize(robot, manager)
       @robot = robot
       @manager = manager
     end
@@ -10,15 +9,16 @@ module Actions
     def perform
       puts("bot number #{@robot.id} is selling")
       sleep(@@duration)
+      # number of foobars we can sell
       sells = rand(1..5)
-      @robot.funds += sells
+      @robot.available_funds += sells
       @manager.available_funds += sells
+      @manager.total_revenue += sells
+      picked_foobar_ids = @robot.foobars.first(sells).map(&:id) #pick the n first foobars from the robot's foobars
+      @robot.foobars.shift(sells) #getting the n first foobars out
+      @manager.foobars.reject{|foobar| picked_foobar_ids.include?(foobar.id)}
       puts("total profit is #{@manager.available_funds}")
-      puts("bot number #{@robot.id} made #{@robot.funds} euros")
-      while sells >= 0
-        sells = sells - 1
-        @manager.foobars.delete_at(sells)
-      end
+      puts("bot number #{@robot.id} made  #{sells} and now has #{@robot.available_funds} euros as available_funds")
     end
   end
 end

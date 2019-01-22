@@ -30,16 +30,18 @@ module Actions
     def perform
       sleep(@@current_duration)
       puts("bot number #{@robot.id} is assembling")
-      current_foo = @manager.foos.shift
-      current_bar = @manager.bars.shift
       status = operation_status
-      @manager.foos = @manager.foos.reject { |foo| foo.id == current_foo.id }
       if status == :success
         # bar peut etre reutilise mais pas le foo
         @manager.total_produced += 1
         puts("this production chain has produced #{@manager.total_produced} foobars")
-        @manager.bars =  @manager.bars.reject { |bar| bar.id == current_bar.id }
-        @manager.foobars.push(Foobar.new(current_foo, current_bar))
+        new_foobar = Foobar.new(@foo, @bar)
+        @robot.foobars.push(new_foobar)
+        @manager.foobars.push(new_foobar)
+      else
+        # reuse the bar
+        @robot.bars.push(@bar)
+        @manager.bars.push(@bar)
       end
     end
     # upgrade of 10% of current assemble duration unless we are already at 50% of original assemble_duration

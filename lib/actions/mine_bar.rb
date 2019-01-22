@@ -9,8 +9,10 @@ module Actions
 
     def perform
       puts("bot number #{@robot.id} is mining bar")
-      sleep(@@duration)
-      @manager.bars.push(Bar.new)
+      sleep(@@current_duration)
+      new_bar = Bar.new
+      @robot.bars.push(new_bar)
+      @manager.bars.push(new_bar)
     end
 
     def self.original_duration
