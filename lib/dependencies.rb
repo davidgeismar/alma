@@ -1,4 +1,5 @@
 require("pry-byebug")
+require_relative('./constants')
 require_relative('./foo')
 require_relative('./bar')
 require_relative('./actions/assemble')

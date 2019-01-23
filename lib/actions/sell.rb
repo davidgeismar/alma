@@ -1,6 +1,6 @@
 module Actions
   class Sell
-    @@duration = 1
+    @@duration = SELL_DURATION
     def initialize(robot, manager)
       @robot = robot
       @manager = manager

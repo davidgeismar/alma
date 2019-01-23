@@ -1,6 +1,6 @@
 module Actions
   class MineFoo
-    @@original_duration = 1
+    @@original_duration = MINE_FOO_DURATION
     @@current_duration = @@original_duration
     def initialize(robot, manager)
       @robot = robot

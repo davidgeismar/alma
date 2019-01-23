@@ -1,6 +1,6 @@
 module Actions
   class MineBar
-    @@original_duration = rand(0.1..0.3)
+    @@original_duration = MINE_BAR_DURATION
     @@current_duration = @@original_duration
     def initialize(robot, manager)
       @robot = robot

@@ -31,8 +31,6 @@ class Robot
 
   def get_to_work!
     while @stopwatch.running
-      ::Actions::MineFoo.new(self, @manager).perform if self.foos.empty? #should it be the manager checking foos or every individual bots
-      ::Actions::MineBar.new(self, @manager).perform if self.bars.empty? # same
       puts("elapsed time : #{@stopwatch.elapsed}")
       ActionDecisionCenter.new(@manager, self).choose_action
     end

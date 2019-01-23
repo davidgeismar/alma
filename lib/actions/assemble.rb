@@ -1,7 +1,7 @@
 module Actions
   class Assemble
-    @@original_duration = 2
-    @@success_probability = 0.8
+    @@original_duration = ASSEMBLE_DURATION
+    @@success_probability = ASSEMBLE_SUCESS_PROBABILITY
     @@current_duration = @@original_duration
     # ratio success to calculate the average production duration
     @@ratio_success = 1/@@success_probability

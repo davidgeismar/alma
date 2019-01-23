@@ -11,9 +11,18 @@ class ActionDecisionCenter
     @manager.current_upgrade_step = step
   end
 
+  # the problem here is that I choose my course of action based on every individual bot and not on the global stock
+  # The strategy here is
+  # mining foo si plus de foo
+  # mining bar si plus de bar
+  # assembling as long as we dont have at least 5 foobars (because you could sell as much as 5 foobars each time)
+  # tant que le robot n'a pas au minimum 12 euros : vendre (car un upgrade coute 12)
+  # si le robot a plus de 12 euros upgrade ou nouveau bot en fonction de la fonction d'optimisation
   def choose_action
     puts("in choose action")
     puts("robot #{@robot.id} has #{@robot.foobars.size} in stock")
+    ::Actions::MineFoo.new(@robot, @manager).perform if @robot.foos.empty? #should it be the manager checking foos or every individual bots
+    ::Actions::MineBar.new(@robot, @manager).perform if @robot.bars.empty? # same
     if @robot.foobars.size < 5 #assemble
       current_foo = @robot.foos.shift
       current_bar = @robot.bars.shift
