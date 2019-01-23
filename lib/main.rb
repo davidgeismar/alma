@@ -1,4 +1,4 @@
-require_relative("dependencies")
+require_relative("manifest")
 
 
 stopwatch = StopWatch.new(130)
