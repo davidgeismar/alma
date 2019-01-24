@@ -11,18 +11,18 @@ module Actions
       sleep(@@duration)
       # number of foobars we can sell
       sells = rand(1..5)
-      retrieving_foobars_from_stocks(sells)
+      retrieving_foobars_from_stock(sells)
       updating_sells_data(sells)
     end
 
     private
 
-    def retrieving_foobars_from_stock
+    def retrieving_foobars_from_stock(sells)
       picked_foobar_ids = @robot.foobars.first(sells).map(&:id) #pick the n first foobars from the robot's foobars
       @robot.foobars.shift(sells) #getting the n first foobars out
       @manager.foobars.reject{|foobar| picked_foobar_ids.include?(foobar.id)}
     end
-    
+
     def updating_sells_data(sells)
       @robot.available_funds += sells
       @manager.available_funds += sells

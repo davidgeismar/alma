@@ -5,7 +5,7 @@ require("manager.rb")
 require("action_decision_center.rb")
 require("pry-byebug")
 
-RSpec.describe Manager, "compare_production_improvement_ratio" do
+RSpec.describe ActionDecisionCenter, "compare_production_improvement_ratio" do
   context "bla" do
     it "calculates what is the best decision between upgrading and buying" do
       manager = Manager.new
